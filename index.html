@@ -4,30 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>単語帳</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="VOCAB">
-  <meta name="theme-color" content="#3a6b4a">
-  <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="VOCAB">
+<meta name="theme-color" content="#3a6b4a">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f7f4ef;
-    --bg2: #eeeae3;
-    --surface: #ffffff;
-    --border: #ddd9d1;
-    --border2: #c8c3ba;
-    --accent: #3a6b4a;
-    --accent-light: #e8f0eb;
-    --accent2: #2e5439;
-    --red: #b84040;
-    --red-light: #fdf0f0;
-    --green: #3a6b4a;
-    --green-light: #e8f0eb;
-    --text: #1e1e1e;
-    --text2: #555;
-    --muted: #999;
+    --bg: #f7f4ef; --bg2: #eeeae3; --surface: #ffffff;
+    --border: #ddd9d1; --border2: #c8c3ba;
+    --accent: #3a6b4a; --accent-light: #e8f0eb; --accent2: #2e5439;
+    --red: #b84040; --red-light: #fdf0f0;
+    --green: #3a6b4a; --green-light: #e8f0eb;
+    --text: #1e1e1e; --text2: #555; --muted: #999;
     --shadow: 0 2px 12px rgba(0,0,0,0.07);
     --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
   }
@@ -43,12 +34,11 @@
   .add-form { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); }
   .form-title { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
   .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .form-row input { flex: 1; min-width: 130px; background: var(--bg); border: 1.5px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.18s; }
+  .form-row input { flex: 1; min-width: 130px; background: var(--bg); border: 1.5px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; }
   .form-row input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(58,107,74,0.1); }
   .form-row input::placeholder { color: var(--muted); }
-  .btn-add { background: var(--accent); color: #fff; border: none; padding: 10px 22px; border-radius: 10px; font-weight: 500; cursor: pointer; font-size: 14px; font-family: inherit; transition: background 0.18s; white-space: nowrap; }
-  .btn-add:hover { background: var(--accent2); }
-  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding: 0 2px; }
+  .btn-add { background: var(--accent); color: #fff; border: none; padding: 10px 22px; border-radius: 10px; font-weight: 500; cursor: pointer; font-size: 14px; font-family: inherit; white-space: nowrap; }
+  .stats-bar { display: flex; align-items: center; margin-bottom: 14px; padding: 0 2px; }
   .stat { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
   .stat-num { color: var(--accent); font-weight: 600; font-size: 14px; }
   .word-list { display: flex; flex-direction: column; gap: 8px; }
@@ -57,37 +47,31 @@
   .word-en { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--text); }
   .word-ja { font-size: 13px; color: var(--text2); margin-top: 2px; }
   .word-note { font-size: 11px; color: var(--muted); margin-top: 2px; font-style: italic; }
-  .btn-del { background: none; border: 1.5px solid var(--border); color: var(--muted); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 13px; transition: all 0.18s; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .btn-del:hover { border-color: var(--red); color: var(--red); background: var(--red-light); }
+  .btn-del { background: none; border: 1.5px solid var(--border); color: var(--muted); width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .empty-state { text-align: center; padding: 56px 0; color: var(--muted); font-size: 14px; line-height: 2; }
   .empty-icon { font-size: 36px; margin-bottom: 10px; }
   .mode-toggle { display: flex; gap: 8px; margin-bottom: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 5px; box-shadow: var(--shadow); }
-  .mode-btn { flex: 1; padding: 9px; border-radius: 8px; border: none; background: none; color: var(--muted); font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.18s; }
+  .mode-btn { flex: 1; padding: 9px; border-radius: 8px; border: none; background: none; color: var(--muted); font-size: 13px; cursor: pointer; font-family: inherit; font-weight: 500; }
   .mode-btn.active { background: var(--accent); color: #fff; }
   .progress-wrap { margin-bottom: 6px; }
   .progress-bar { background: var(--bg2); border-radius: 99px; height: 5px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #5a9b6e); border-radius: 99px; transition: width 0.35s ease; }
-  .card-counter { text-align: right; font-size: 12px; color: var(--muted); margin-top: 5px; margin-bottom: 20px; font-weight: 500; }
-
-
-  .card-wrap { margin: 0 auto 24px; width: 100%; max-width: 500px; height: 240px; cursor: pointer; position: relative; user-select: none; }
+  .card-counter { text-align: right; font-size: 12px; color: var(--muted); margin-top: 5px; margin-bottom: 20px; }
+  /* カード: アニメーションなし、display切り替えのみ */
+  .card-wrap { margin: 0 auto 24px; width: 100%; max-width: 500px; height: 240px; cursor: pointer; position: relative; }
   .card-face { position: absolute; inset: 0; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 36px; text-align: center; }
-  .card-front { background: var(--surface); border: 1.5px solid var(--border); box-shadow: var(--shadow-lg); z-index: 2; opacity: 1; visibility: visible; transition: opacity 0.2s ease; }
+  .card-front { background: var(--surface); border: 1.5px solid var(--border); box-shadow: var(--shadow-lg); }
   .card-front::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--accent), #7bbf90); border-radius: 20px 20px 0 0; }
-  .card-back { background: var(--surface); border: 1.5px solid var(--accent); box-shadow: var(--shadow-lg); z-index: 1; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0s linear 0.2s; }
+  .card-back { background: var(--surface); border: 1.5px solid var(--accent); box-shadow: var(--shadow-lg); display: none; }
   .card-back::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #5a9b6e, var(--accent)); border-radius: 20px 20px 0 0; }
-  .card-wrap.flipped .card-front { opacity: 0; z-index: 1; pointer-events: none; }
-  .card-wrap.flipped .card-back { opacity: 1; visibility: visible; pointer-events: auto; z-index: 2; transition: opacity 0.2s ease, visibility 0s linear 0s; }
   .card-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; font-weight: 500; }
   .card-main { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: var(--text); line-height: 1.2; word-break: break-word; }
   .card-sub { font-size: 14px; color: var(--text2); margin-top: 10px; }
   .card-hint { font-size: 12px; color: var(--muted); margin-top: 20px; }
   .card-controls { display: flex; justify-content: center; gap: 14px; margin-bottom: 8px; }
-  .btn-result { flex: 1; max-width: 200px; padding: 13px 20px; border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.18s; border: 1.5px solid; }
+  .btn-result { flex: 1; max-width: 200px; padding: 13px 20px; border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; border: 1.5px solid; }
   .btn-ng { background: var(--red-light); border-color: #e8a0a0; color: var(--red); }
-  .btn-ng:hover { background: #fae0e0; border-color: var(--red); }
   .btn-ok { background: var(--green-light); border-color: #96c4a5; color: var(--green); }
-  .btn-ok:hover { background: #d4e9db; border-color: var(--green); }
   .result-wrap { max-width: 440px; margin: 16px auto 0; }
   .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 36px 32px; text-align: center; box-shadow: var(--shadow-lg); }
   .result-emoji { font-size: 40px; margin-bottom: 12px; }
@@ -95,14 +79,12 @@
   .result-score { font-size: 52px; font-weight: 300; font-family: 'Cormorant Garamond', serif; color: var(--accent); line-height: 1.1; margin-bottom: 4px; }
   .result-detail { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
   .result-actions { display: flex; flex-direction: column; gap: 10px; }
-  .btn-restart { background: var(--accent); color: #fff; border: none; padding: 13px 32px; border-radius: 11px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; transition: background 0.18s; }
-  .btn-restart:hover { background: var(--accent2); }
-  .btn-retry-ng { background: var(--red-light); color: var(--red); border: 1.5px solid #e8a0a0; padding: 12px 32px; border-radius: 11px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.18s; }
-  .btn-retry-ng:hover { background: #fae0e0; border-color: var(--red); }
+  .btn-restart { background: var(--accent); color: #fff; border: none; padding: 13px 32px; border-radius: 11px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; }
+  .btn-retry-ng { background: var(--red-light); color: var(--red); border: 1.5px solid #e8a0a0; padding: 12px 32px; border-radius: 11px; font-size: 14px; cursor: pointer; font-family: inherit; font-weight: 500; }
   .btn-retry-ng:disabled { opacity: 0.4; cursor: default; pointer-events: none; }
   .wrong-section { margin-top: 20px; text-align: left; border-top: 1px solid var(--border); padding-top: 16px; }
   .wrong-section-title { font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-  .wrong-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--bg2); font-size: 13px; }
+  .wrong-item { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--bg2); }
   .wrong-item-en { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--red); }
   .wrong-item-ja { font-size: 12px; color: var(--muted); }
   .no-words { text-align: center; padding: 64px 0; color: var(--muted); line-height: 2.4; }
@@ -130,9 +112,7 @@
       </div>
     </div>
     <div class="stats-bar">
-      <div class="stats-left">
-        <div class="stat">登録 <span class="stat-num" id="stat-total">0</span> 語</div>
-      </div>
+      <div class="stat">登録 <span class="stat-num" id="stat-total">0</span> 語</div>
     </div>
     <div class="word-list" id="word-list">
       <div class="empty-state"><div class="empty-icon">📖</div>まだ単語が登録されていません<br>上のフォームから追加してみましょう</div>
@@ -152,20 +132,20 @@
       </div>
       <div class="card-counter" id="card-counter">1 / 1</div>
       <div class="card-wrap" id="card-wrap" onclick="flipCard()">
-        <div class="card-face card-front">
+        <div class="card-face card-front" id="card-front">
           <div class="card-label" id="front-label">ENGLISH</div>
           <div class="card-main" id="front-text"></div>
           <div class="card-hint">✦ タップして答えを確認</div>
         </div>
-        <div class="card-face card-back">
+        <div class="card-face card-back" id="card-back">
           <div class="card-label" id="back-label">JAPANESE</div>
           <div class="card-main" id="back-text"></div>
           <div class="card-sub" id="back-note"></div>
         </div>
       </div>
       <div class="card-controls" id="card-controls" style="display:none">
-        <button class="btn-result btn-ng" onclick="judge(false)">✕ &nbsp;もう一度</button>
-        <button class="btn-result btn-ok" onclick="judge(true)">○ &nbsp;覚えた！</button>
+        <button class="btn-result btn-ng" onclick="judge(false)">✕ もう一度</button>
+        <button class="btn-result btn-ok" onclick="judge(true)">○ 覚えた！</button>
       </div>
     </div>
     <div id="result-view" style="display:none">
@@ -275,8 +255,9 @@
   function showCard() {
     const w = studyQueue[currentIdx];
     isFlipped = false; judging = false;
-    const wrap = document.getElementById('card-wrap');
-    wrap.classList.remove('flipped');
+    // アニメーションなし・display切り替えのみ
+    document.getElementById('card-front').style.display = 'flex';
+    document.getElementById('card-back').style.display = 'none';
     if (mode === 'en') {
       document.getElementById('front-label').textContent = 'ENGLISH';
       document.getElementById('front-text').textContent = w.en;
@@ -298,7 +279,8 @@
   function flipCard() {
     if (isFlipped) return;
     isFlipped = true;
-    document.getElementById('card-wrap').classList.add('flipped');
+    document.getElementById('card-front').style.display = 'none';
+    document.getElementById('card-back').style.display = 'flex';
     document.getElementById('card-controls').style.display = 'flex';
   }
 
@@ -366,5 +348,3 @@
 </script>
 </body>
 </html>
-
-
